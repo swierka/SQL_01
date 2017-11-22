@@ -22,4 +22,4 @@ select * from pracownicy order by nazwisko;
 select * from pracownicy where stanowisko = 'windows admin';
 select * from pracownicy where (datediff(data_urodzenia,now()))/-365 > 30;
 Update pracownicy set wyplata = wyplata*1.1 where stanowisko = 'windows admin';
--- delete from pracownicy where data_urodzenia = (select min(data_urodzenia));
+delete p.* from pracownicy p where data_urodzenia IN (select data_urodzenia from (SELECT * from pracownicy where data_urodzenia = (select max(data_urodzenia) from pracownicy)) najmlodszy);
